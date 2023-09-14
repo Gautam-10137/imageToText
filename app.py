@@ -2,7 +2,7 @@ from flask import Flask, request, jsonify
 from PIL import Image
 import pytesseract
 from translate_text import translate_text
-
+import os
 app = Flask(__name__)
 
 @app.route('/extract-text', methods=['POST'])
@@ -33,4 +33,5 @@ def extract_text_route():
         return jsonify({'error': str(e)}), 500
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
